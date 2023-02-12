@@ -1,5 +1,5 @@
 import { Component } from "react"
-import { Row, Col, Spinner } from "react-bootstrap"
+import { Row, Col, Spinner, Alert } from "react-bootstrap"
 
 
 class Carousel extends Component {
@@ -41,13 +41,17 @@ class Carousel extends Component {
 
             <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4 no-gutters text-center" >
                 {this.state.load && <Col><Spinner animation="border" /></Col>}
-                {movie.map(movie =>
-                    <Col key={movie.imdbID} className="mb-2 px-1">
-                        <img className="img-fluid" src={movie.Poster} alt="poster" />
-                    </Col>
-                )}
+                {this.state.error && < Col > <Alert variant="danger"> error</Alert></Col>}
 
-            </Row>
+                {
+                    movie.map(movie =>
+                        <Col key={movie.imdbID} className="mb-2 px-1">
+                            <img className="img-fluid" src={movie.Poster} alt="poster" />
+                        </Col>
+                    )
+                }
+
+            </Row >
         )
 
 
