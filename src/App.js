@@ -16,10 +16,10 @@ function App() {
   return (
     <>
       <NavTop />
-      <Container className="px-4">
+      <Container >
 
         <DropDown />
-        <Home title="harry" />
+        <Home />
 
 
       </Container>
