@@ -1,14 +1,13 @@
 import { Component } from "react"
-import { Row, Col } from "react-bootstrap"
-
-
+import { Row, Col, Spinner } from "react-bootstrap"
 
 
 class Carousel extends Component {
     state = {
-        films: []
+        films: [],
+        load: true,
+        error: false
     }
-
     componentDidMount = async () => {
         try {
             let response = await fetch(`http://www.omdbapi.com/?apikey=f6045731&s=${this.props.name}&type=${this.props.type}`)
@@ -16,18 +15,22 @@ class Carousel extends Component {
                 let data = await response.json()
                 console.log(data)
                 console.log(data.Search)
-                this.setState({ films: data.Search },
-                    // () => {
-                    //     console.log(this.state.films)
-                    //     console.log("hi")
-                    // }
+                this.setState({
+                    films: data.Search, load: false, error: false
+                }
                 )
             }
             else {
                 console.log("error")
+                this.setState({
+                    load: false, error: true
+                })
             }
         } catch (error) {
             console.log(error)
+            this.setState({
+                load: false, error: true
+            })
         }
     }
 
@@ -37,6 +40,7 @@ class Carousel extends Component {
         return (
 
             <Row className="row-cols-1 row-cols-sm-2 row-cols-lg-4 row-cols-xl-6 mb-4 no-gutters text-center" >
+                {this.state.load && <Col><Spinner animation="border" /></Col>}
                 {movie.map(movie =>
                     <Col key={movie.imdbID} className="mb-2 px-1">
                         <img className="img-fluid" src={movie.Poster} alt="poster" />

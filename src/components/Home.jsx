@@ -4,9 +4,7 @@ import Carousel from "./Carousel";
 
 
 class Home extends Component {
-
     render() {
-
         return (
             <>
                 <h4>Trending Now</h4>
